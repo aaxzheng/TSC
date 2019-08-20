@@ -1,11 +1,19 @@
 {
   "name": "tsc",
   "version": "1.0.0",
-  "description": "",
+  "description": "calendar app",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "server": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/aaxzheng/TSC.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
 }
