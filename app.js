@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-
-
+const users = require("./routes/users");
+const tasks = require("./routes/tasks");
 const express = require("express");
 const app = express();
 app.get("/",(req,res) => res.send("hello peole"));
@@ -8,6 +8,9 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
 
 const db = require("./config/keys").mongoURI;
+app.use("/users",users);
+app.use("/tasks",tasks);
+
 
 mongoose
 .connect(db, { useNewUrlParser: true })
