@@ -4,10 +4,12 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
+const passport = require('passport');
 
 
 
 router.post('/signup', (req, res) => {
+    //Post request for new users
     User.findOne({ email: req.body.email })
     .then (user => {
         if (user) {
@@ -31,7 +33,7 @@ router.post('/signup', (req, res) => {
                             (err, token) => {
                                 res.json({
                                     success: true,
-                                    token: 'Beary' + token
+                                    token: 'Bearer' + token
                                 });
                             });
 
@@ -44,6 +46,7 @@ router.post('/signup', (req, res) => {
 
 
 router.post('/login', (req,res) => {
+    //Post request to log in users
     const password = req.body.password;
     User.findOne({ email: req.body.email })
     .then(user => {
@@ -61,7 +64,7 @@ router.post('/login', (req,res) => {
                     (err,token) => {
                     res.json({
                         success: true,
-                        token: 'Beary' + token
+                        token: 'Bearer' + token
                     });
                 });
 
@@ -73,17 +76,21 @@ router.post('/login', (req,res) => {
 })
 
 router.get('/all', (req,res) => {
+    //Post request to retrieve all users
     User.find({}, (err, users) => {
         let allUsers = {};
         users.forEach((user) => {
-            allUser[user._id] = user;
+            allUsers[user._id] = user;
         });
         res.send(allUsers);
     })
 });
 
+router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+    res.json({ msg: 'Success' });
+})
 
 
-router.get("/test", (req, res) => res.json({ msg: "This is the users route" }));
+
 
 module.exports = router;
