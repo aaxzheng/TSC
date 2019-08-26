@@ -28,7 +28,7 @@ router.post('/signup', (req, res) => {
                         const payload = { id: user.id, name: user.name };
 
                         jwt.sign(payload,
-                            keys.secret,
+                            keys.secretOrKey,
                             { expiresIn: 3600 },
                             (err, token) => {
                                 res.json({
@@ -59,7 +59,7 @@ router.post('/login', (req,res) => {
                 const payload = {id: user.id, name: user.name};
 
                 jwt.sign(payload,
-                    keys.secret,
+                    keys.secretOrKey,
                     {expiresIn: 3600},
                     (err,token) => {
                     res.json({
@@ -86,8 +86,14 @@ router.get('/all', (req,res) => {
     })
 });
 
-router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
-    res.json({ msg: 'Success' });
+router.get('/current', (req, res) => {
+    passport.authenticate('jwt', { session: false })( req, res, () => {
+        res.json({ 
+            id: req.user.id,
+            name: req.user.name,
+            email: req.user.email
+         });
+    });
 })
 
 
