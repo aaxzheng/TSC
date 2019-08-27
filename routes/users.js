@@ -5,15 +5,24 @@ const User = require("../models/User");
 const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
 const passport = require('passport');
-
+const validateRegisterInput = require('../validation/register');
 
 
 router.post('/signup', (req, res) => {
     //Post request for new users
+    
+    //validations for registering new users
+    const {errors, isValid } = validateRegisterInput(req.body);
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+
+
     User.findOne({ email: req.body.email })
     .then (user => {
         if (user) {
-            return res.status(400).json({email: "A user has already registered with this email address"})
+            errors.email = "A user with this e-mail has already been registered";
+            return res.status(400).json(errors)
         } else {
             const newUser = new User ({
                 name: req.body.name,
@@ -86,14 +95,13 @@ router.get('/all', (req,res) => {
     })
 });
 
-router.get('/current', (req, res) => {
-    passport.authenticate('jwt', { session: false })( req, res, () => {
-        res.json({ 
-            id: req.user.id,
-            name: req.user.name,
-            email: req.user.email
-         });
-    });
+router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+    debugger;
+    res.json({ 
+        id: req.user.id,
+        name: req.user.name,
+        email: req.user.email
+     });
 })
 
 
