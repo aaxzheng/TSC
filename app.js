@@ -5,6 +5,8 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const passport = require("passport");
+app.use(passport.initialize());
+require('./config/passport')(passport);
 
 
 const port = process.env.PORT || 5000;
@@ -14,8 +16,6 @@ const db = require("./config/keys").mongoURI;
 // body parser before app.use(route) 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(passport.initialize());
-require('./config/passport')(passport);
 
 app.use("/users",users);
 app.use("/tasks",tasks);

@@ -19,7 +19,7 @@ const TaskSchema = new Schema({
         type: String,
     },
     location: {
-        type: Location,
+        type: String,
     },
     pub: {
         type: Boolean,
