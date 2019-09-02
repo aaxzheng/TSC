@@ -8,11 +8,11 @@ const TaskSchema = new Schema({
         required: true
     },
     startTime: {
-        type: Date,
+        type: String,
         required: true
     },
     endTime: {
-        type: Date,
+        type: String,
         required: true
     },
     description: {
@@ -24,6 +24,10 @@ const TaskSchema = new Schema({
     pub: {
         type: Boolean,
         required: true
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref:'users'
     }
 })
 

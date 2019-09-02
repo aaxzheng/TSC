@@ -1,5 +1,9 @@
 const validBoolean = str => {
-    return typeof str === 'boolean';
+    if (typeof str === 'boolean') {
+        return "true";
+    } else {
+        return "false";
+    };
 }
 
 module.exports = validBoolean;
