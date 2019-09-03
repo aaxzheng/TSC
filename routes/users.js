@@ -85,7 +85,7 @@ router.post('/login', (req,res) => {
 })
 
 router.get('/all', (req,res) => {
-    //Post request to retrieve all users
+    //get request to retrieve all users
     User.find({}, (err, users) => {
         let allUsers = {};
         users.forEach((user) => {

@@ -8,7 +8,7 @@ module.exports = function validateTaskInput(data) {
     data.name = validText(data.name) ? data.name : '';
     data.startTime = validText(data.startTime) ? data.startTime : '';
     data.endTime = validText(data.endTime) ? data.endTime : '';
-    data.pub = validBoolean(data.pub) ? data.pub : false;
+    data.pub = validBoolean(data.pub) ? data.pub : "false";
     if (!Validator.isLength(data.name, { min: 1, max: 90 })) {
         errors.name = "Name must be between 1 and 90 characters";
     }
@@ -21,7 +21,7 @@ module.exports = function validateTaskInput(data) {
     if (Validator.isEmpty(data.endTime)) {
         errors.endTime = "An end time is required";
     }
-    if (Validator.isBoolean(data.pub)) {
+    if (Validator.isEmpty(data.pub)) {
         errors.pub = 'A task must be specified public or private';
     }
 

@@ -9,9 +9,13 @@ const validateTaskInput = require('../validation/valid-task');
 router.get("/test", (req, res) => res.json({ msg: "This is the tasks route" }));
 
 router.get("/all" ,(res,req) => {
-    Task.find()
-    .then((tasks) => { return res.json(tasks) })
-    .catch(err => req.status(404).json({ notasksfound: "No tasks found" }));
+    Task.find({}, (err, tasks) => {
+        let alltasks = {};
+        tasks.forEach((task) => {
+            alltasks[task._id] = task;
+        });
+        req.send(alltasks);
+    })
 });
 
 router.get('/user/:user_id', (req, res) => {
@@ -36,11 +40,15 @@ router.post('/',
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
         const { errors, isValid } = validateTaskInput(req.body);
-
+        debugger;
         if (!isValid) {
             return res.status(400).json(errors);
         }
-
+        if (req.body.pub == 'true') {
+            req.body.pub = true;
+        } else if (req.body.pub == 'false') {
+            req.body.pub = false;
+        }
         const newTask = new Task({
             name: req.body.name,
             user: req.user.id,
