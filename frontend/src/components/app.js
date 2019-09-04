@@ -1,8 +1,8 @@
 import React from 'react';
-import { AuthRoute, ProtectedRoute } from '../util/route_util';
+import { AuthRoute } from '../util/route_util';
 import { Switch } from 'react-router-dom';
 
-import MainPage from './main/main_page';
+import MainPage from './main/main';
 
 const App = () => (
     <Switch>
