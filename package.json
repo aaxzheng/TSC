@@ -18,5 +18,9 @@
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "moment": "^2.24.0",
+    "react-big-calendar": "^0.22.0"
   }
 }

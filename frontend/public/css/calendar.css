@@ -1,0 +1,14 @@
+.calendar-main {
+    width: 100vw;
+    height: 45vw;
+    display:flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.calendar-wrap {
+    background-color: white;
+    width:80%;
+    height:100%;
+}
+
